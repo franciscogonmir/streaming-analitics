@@ -1,7 +1,7 @@
 package com.analytics.infrastructure.config;
 
 import com.analytics.domain.producer.SendData;
-import com.analytics.infrastructure.producer.ProducerStreamData;
+import com.analytics.infrastructure.producer.ProducerDataStream;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -19,7 +19,7 @@ public class InfraEstructureConfig {
 
     @Bean
     public SendData producer(){
-        return new ProducerStreamData();
+        return new ProducerDataStream();
     }
 
     //TODO ver si la config me la puedo llevar al application.yml
@@ -27,7 +27,10 @@ public class InfraEstructureConfig {
     public SimpleRabbitListenerContainerFactory myRabbitListenerContainerFactory() {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory());
-        factory.setReceiveTimeout(500L);
+        factory.setReceiveTimeout(10000L);
+        factory.setBatchListener(true);
+        factory.setConsumerBatchEnabled(true);
+        factory.setBatchSize(5);
         return factory;
     }
     @Bean
