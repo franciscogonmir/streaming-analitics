@@ -12,9 +12,6 @@ public class DataStreamUseCaseImpl implements SendDataUseCase {
     @Autowired
     private  SendData sendData;
 
-    @Autowired
-    DataStreamQueue consumerQueue;
-
     @Override
     public void processDataStream(Stream dataStream) {
         this.sendData.send(dataStream);
