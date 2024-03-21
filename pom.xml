@@ -34,7 +34,6 @@
         </dependency>
     </dependencies>
 
-
     <modules>
         <module>mic-analytics-processor</module>
         <module>mic-analytics-query</module>
@@ -60,4 +59,5 @@
         </plugin>
     </plugins>
     </build>
+
 </project>

@@ -7,13 +7,6 @@
   <url>http://maven.apache.org</url>
   <packaging>jar</packaging>
 
-
-  <parent>
-    <groupId>com.stream.analytics</groupId>
-    <artifactId>micro-stream-analytics</artifactId>
-    <version>1.0.0</version>
-  </parent>
-
   <dependencies>
     <!-- Spring Boot Starter Web for REST API -->
     <dependency>
@@ -41,4 +34,5 @@
       </plugin>
     </plugins>
   </build>
+
 </project>
