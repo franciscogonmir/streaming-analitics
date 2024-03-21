@@ -1,7 +1,7 @@
 package com.analytics.infrastructure.config;
 
-import com.analytics.domain.producer.SendData;
-import com.analytics.infrastructure.producer.ProducerDataStream;
+import com.analytics.domain.producer.ProducerDataStream;
+import com.analytics.infrastructure.producer.ProducerDataStreamImpl;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -18,8 +18,8 @@ public class InfraEstructureConfig {
     }
 
     @Bean
-    public SendData producer(){
-        return new ProducerDataStream();
+    public ProducerDataStream producer(){
+        return new ProducerDataStreamImpl();
     }
 
     //TODO ver si la config me la puedo llevar al application.yml

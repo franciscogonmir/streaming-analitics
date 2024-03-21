@@ -1,6 +1,6 @@
 package com.analytics.infrastructure.api.controller;
 
-import com.analytics.domain.usecase.SendDataUseCase;
+import com.analytics.domain.usecase.DataStreamUseCase;
 import com.analytics.infrastructure.api.dto.StreamDto;
 import com.analytics.infrastructure.api.mapper.DataStreamMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -18,11 +18,11 @@ public class DataStreamController {
     //TODO injection constructor
       DataStreamMapper mapper;
     @Autowired
-    SendDataUseCase sendDataUseCase;
+    DataStreamUseCase sendDataUseCase;
 
     @PostMapping("/produce/feed")
     ResponseEntity processorFeeds(@RequestBody StreamDto streamDto){
-        sendDataUseCase.processDataStream( this.mapper.toDataStreamDomain(streamDto));
+        sendDataUseCase.sendDataStream( this.mapper.toDataStreamDomain(streamDto));
 
         return ResponseEntity.accepted().build();
     }

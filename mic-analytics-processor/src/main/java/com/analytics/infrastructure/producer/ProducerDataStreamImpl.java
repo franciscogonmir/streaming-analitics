@@ -1,12 +1,12 @@
 package com.analytics.infrastructure.producer;
 
 import com.analytics.domain.entities.Stream;
-import com.analytics.domain.producer.SendData;
+import com.analytics.domain.producer.ProducerDataStream;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class ProducerDataStream implements SendData {
+public class ProducerDataStreamImpl implements ProducerDataStream {
 
     @Autowired
     RabbitTemplate rabbitTemplate;

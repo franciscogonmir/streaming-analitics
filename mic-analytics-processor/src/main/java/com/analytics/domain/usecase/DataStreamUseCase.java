@@ -2,7 +2,7 @@ package com.analytics.domain.usecase;
 
 import com.analytics.domain.entities.Stream;
 
-public interface SendDataUseCase {
+public interface DataStreamUseCase {
 
-    void processDataStream(Stream dataStream);
+    void sendDataStream(Stream dataStream);
 }
