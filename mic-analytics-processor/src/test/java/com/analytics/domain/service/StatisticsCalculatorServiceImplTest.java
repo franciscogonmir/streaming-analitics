@@ -1,4 +1,4 @@
-package com.analytics.infrastructure.service;
+package com.analytics.domain.service;
 
 import com.analytics.domain.entities.DataPoint;
 import com.analytics.domain.entities.DataStream;
