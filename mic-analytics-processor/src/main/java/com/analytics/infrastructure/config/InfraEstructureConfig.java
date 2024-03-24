@@ -17,10 +17,6 @@ public class InfraEstructureConfig {
         return new Queue("myQueue", true);
     }
 
-    @Bean
-    public ProducerDataStream producer(){
-        return new ProducerDataStreamImpl();
-    }
 
     //TODO ver si la config me la puedo llevar al application.yml
     @Bean

@@ -1,7 +1,10 @@
 package com.analytics.domain.entities;
 
+import lombok.Builder;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public record DataPoint (Long at, Integer value) implements Serializable {
+@Builder
+public record DataPoint (Long at, Integer value) {
 }

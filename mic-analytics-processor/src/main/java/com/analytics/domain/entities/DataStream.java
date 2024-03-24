@@ -1,8 +1,10 @@
 package com.analytics.domain.entities;
 
 
+import lombok.Builder;
+
 import java.io.Serializable;
 import java.util.List;
-
-public record DataStream(String id, String feed, List<DataPoint> dataPoints) implements Serializable {
+@Builder
+public record DataStream(String id, String feed, List<DataPoint> dataPoints) {
 }
