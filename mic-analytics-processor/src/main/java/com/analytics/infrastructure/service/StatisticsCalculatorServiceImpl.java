@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
 @Service
 public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorService {
 
@@ -85,7 +86,8 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
     public double calculateThirdQuartile(List<Stream> feed) {
         List<Integer> sortedValues = getSortedValues(feed);
         int size = sortedValues.size();
-        int indexQuartile = 3 * size / FOUR;;
+        int indexQuartile = 3 * size / FOUR;
+        ;
         return calculateQuartile(sortedValues, size, indexQuartile);
     }
 
@@ -101,11 +103,8 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
         var size = dataPoints.size();
         var middleValue = dataPoints.get(size / TWO);
         var middleValue2 = dataPoints.get(size / TWO - ONE);
-        if (isEvenNumber(size)) {
-            return (middleValue2.value() + middleValue.value()) / 2.0;
-        } else {
-            return middleValue.value();
-        }
+        return isEvenNumber(size) ? (middleValue2.value() + middleValue.value()) / 2.0 :
+                middleValue.value();
     }
 
     private List<Integer> calculateMode(List<Integer> numberValues) {
