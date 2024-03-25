@@ -1,6 +1,6 @@
-package com.analytics.domain.service;
+package com.analytics.domain.service.statistics;
 
-import com.analytics.domain.entities.Stream;
+import com.analytics.domain.entities.Messaging.Stream;
 
 import java.util.List;
 

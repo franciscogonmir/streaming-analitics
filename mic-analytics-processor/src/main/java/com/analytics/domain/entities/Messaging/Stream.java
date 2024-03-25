@@ -1,9 +1,8 @@
-package com.analytics.domain.entities;
+package com.analytics.domain.entities.Messaging;
 
 
 import lombok.Builder;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Builder

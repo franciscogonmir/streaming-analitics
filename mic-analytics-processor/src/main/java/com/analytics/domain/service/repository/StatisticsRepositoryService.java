@@ -1,6 +1,6 @@
-package com.analytics.domain.service;
+package com.analytics.domain.service.repository;
 
-import com.analytics.domain.entities.Stream;
+import com.analytics.domain.entities.Messaging.Stream;
 import com.analytics.domain.entities.persistence.Stats;
 
 import java.util.List;

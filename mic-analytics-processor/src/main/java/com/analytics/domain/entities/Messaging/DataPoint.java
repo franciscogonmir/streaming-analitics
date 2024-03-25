@@ -1,4 +1,4 @@
-package com.analytics.domain.entities;
+package com.analytics.domain.entities.Messaging;
 
 import lombok.Builder;
 

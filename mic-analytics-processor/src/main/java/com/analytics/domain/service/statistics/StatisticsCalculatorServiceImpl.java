@@ -1,18 +1,11 @@
-package com.analytics.domain.service;
+package com.analytics.domain.service.statistics;
 
-import com.analytics.domain.entities.DataPoint;
-import com.analytics.domain.entities.Stream;
-import com.analytics.domain.entities.persistence.Stats;
-import com.analytics.domain.service.StatisticsCalculatorService;
-import com.analytics.infrastructure.mapper.persistence.StatisticsMapper;
-import com.analytics.infrastructure.persistence.model.StatisticsModel;
-import com.analytics.infrastructure.persistence.repository.StatisticsRepository;
+import com.analytics.domain.entities.Messaging.DataPoint;
+import com.analytics.domain.entities.Messaging.Stream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.*;
 import java.util.stream.Collectors;
 
