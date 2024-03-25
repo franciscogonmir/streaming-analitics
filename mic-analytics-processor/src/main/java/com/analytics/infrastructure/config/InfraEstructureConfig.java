@@ -1,7 +1,5 @@
 package com.analytics.infrastructure.config;
 
-import com.analytics.domain.producer.ProducerDataStream;
-import com.analytics.infrastructure.producer.ProducerDataStreamImpl;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -17,8 +15,6 @@ public class InfraEstructureConfig {
         return new Queue("myQueue", true);
     }
 
-
-    //TODO ver si la config me la puedo llevar al application.yml
     @Bean
     public SimpleRabbitListenerContainerFactory myRabbitListenerContainerFactory() {
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
@@ -36,7 +32,6 @@ public class InfraEstructureConfig {
         connectionFactory.setPort(5672);
         connectionFactory.setUsername("guest");
         connectionFactory.setPassword("guest");
-        // Otras configuraciones según sea necesario
         return connectionFactory;
     }
 
