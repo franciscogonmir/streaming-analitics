@@ -1,5 +1,19 @@
-version: '2.1'
+version: '3'
 services:
+  mic-analytics-processor:
+    build:
+      context: .
+      dockerfile: mic-analytics-processor/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USERNAME: guest
+      RABBITMQ_PASSWORD: guest
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: 27017
+      MONGO_URL: mongodb://localhost:27017/statistics
   rabbitmq:
     image: rabbitmq:3-management
     restart: always
