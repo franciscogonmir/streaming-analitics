@@ -26,6 +26,7 @@ public class ReadStatisticsController {
     @GetMapping("/{id}")
     public ResponseEntity<StatsDto> getStatsById(@PathVariable String id) {
         var response = this.statsMapper.toStatsDto(readStatsUseCase.getStatsById(id));
+        log.info(":: result obtained by id -> {} ::", response.toString());
         return new ResponseEntity<>(response, HttpStatus.OK);
 
     }
@@ -34,6 +35,7 @@ public class ReadStatisticsController {
     public ResponseEntity<List<StatsDto>> getStatsByFields(@PathVariable String field, @RequestParam String operator,
                                                            @RequestParam double value) {
         var response = this.statsMapper.toStatsListDto(this.readStatsUseCase.filterStatsByField(field, operator, value));
+        response.forEach(statsDto -> log.info(":: Filtered result by {} and {} -> {} ::", field, operator, statsDto.toString()));
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
