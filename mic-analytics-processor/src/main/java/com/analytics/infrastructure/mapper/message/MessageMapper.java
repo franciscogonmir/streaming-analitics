@@ -1,11 +1,11 @@
 package com.analytics.infrastructure.mapper.message;
 
-import com.analytics.domain.entities.DataPoint;
-import com.analytics.domain.entities.DataStream;
-import com.analytics.domain.entities.Stream;
-import com.analytics.infrastructure.producer.Message.DataPointMessage;
-import com.analytics.infrastructure.producer.Message.DataStreamMessage;
-import com.analytics.infrastructure.producer.Message.StreamMessage;
+import com.analytics.domain.entities.Messaging.DataPoint;
+import com.analytics.domain.entities.Messaging.DataStream;
+import com.analytics.domain.entities.Messaging.Stream;
+import com.analytics.infrastructure.messaging.producer.Message.DataPointMessage;
+import com.analytics.infrastructure.messaging.producer.Message.DataStreamMessage;
+import com.analytics.infrastructure.messaging.producer.Message.StreamMessage;
 import org.mapstruct.Mapper;
 
 import java.util.List;

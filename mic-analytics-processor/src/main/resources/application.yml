@@ -4,3 +4,16 @@ spring:
       host: localhost
       port: 27017
       database: statistics
+rabbitmq:
+  queue: datastream_queue
+  exchange: datastream_exchange
+  routing-key: datastream_routingkey
+  host: localhost
+  port: 5672
+  username: guest
+  password: guest
+  listener-config:
+    receive-timeout: 10000 #ms
+    batch-mode: true
+    batch-consumer: true
+    batch-size: 5
