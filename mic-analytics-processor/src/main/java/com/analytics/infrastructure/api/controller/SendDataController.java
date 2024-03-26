@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/api/statistics")
-public class SenDataController {
+public class SendDataController {
 
     private final DataStreamMapper mapper;
 

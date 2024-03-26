@@ -39,7 +39,7 @@ class SenDataControllerTest {
     private SendDataUseCase sendDataUseCase;
 
     @InjectMocks
-    private SenDataController controller;
+    private SendDataController controller;
 
     @BeforeEach
     public void setUp() {
