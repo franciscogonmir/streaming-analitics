@@ -1,7 +1,12 @@
 package com.analytics.infrastructure.api.dto;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+
 import java.util.List;
 
-public record StreamDto(String version, List<DataStreamDto> datastreams) {
+@Builder
+public record StreamDto(@NotNull String version,@Valid @NotNull List<DataStreamDto> datastreams) {
 
 }

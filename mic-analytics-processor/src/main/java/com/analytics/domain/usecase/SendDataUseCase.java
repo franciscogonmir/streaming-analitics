@@ -4,5 +4,5 @@ import com.analytics.domain.entities.Messaging.Stream;
 
 public interface SendDataUseCase {
 
-    void execute(Stream dataStream);
+    void send(Stream dataStream);
 }

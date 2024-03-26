@@ -4,6 +4,7 @@ import com.analytics.domain.entities.Messaging.Stream;
 import com.analytics.domain.messaging.ConsumerDataStream;
 import com.analytics.domain.service.repository.StatisticsRepositoryService;
 import com.analytics.infrastructure.mapper.message.MessageMapper;
+import com.analytics.infrastructure.messaging.config.RabbitProperties;
 import com.analytics.infrastructure.messaging.producer.Message.StreamMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,9 @@ public class ConsumerDataStreamImpl implements ConsumerDataStream {
 
     private final MessageConverter messageConverter;
 
-    @RabbitListener(queues = "myQueue", containerFactory = "myRabbitListenerContainerFactory")
+    private final RabbitProperties rabbitProperties;
+
+    @RabbitListener(queues = "datastream_queue", containerFactory = "myRabbitListenerContainerFactory")
     public void consumeDataStream(List<Message> messages) {
         log.info(":: Received {} messages ::", messages.size());
         List<StreamMessage> messagesToConsume = new ArrayList<>();
