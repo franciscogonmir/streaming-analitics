@@ -11,7 +11,7 @@ public class SendDataUseCaseImpl implements SendDataUseCase {
     private final ProducerDataStream producerDataStream;
 
     @Override
-    public void send(Stream dataStream) {
+    public void send(final Stream dataStream) {
 
         this.producerDataStream.execute(dataStream);
 

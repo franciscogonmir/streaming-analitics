@@ -12,8 +12,8 @@ import org.mapstruct.Mapping;
 public interface DataStreamMapper {
 
     @Mapping(target = "dataStreams", source = "datastreams")
-    Stream toDataStreamDomain(StreamDto dto);
+    Stream toDataStreamDomain(final StreamDto dto);
 
     @Mapping(target = "dataPoints", source = "datapoints")
-    DataStream toDataStreamDomain(DataStreamDto dto);
+    DataStream toDataStreamDomain(final DataStreamDto dto);
 }

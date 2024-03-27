@@ -2,6 +2,7 @@ package com.analytics.infrastructure.persistence.service;
 
 import com.analytics.domain.entities.Messaging.Stream;
 import com.analytics.domain.entities.persistence.Stats;
+import com.analytics.domain.exception.InvalidParameterException;
 import com.analytics.domain.exception.StatsNotFoundException;
 import com.analytics.domain.service.repository.StatisticsRepositoryService;
 import com.analytics.domain.service.statistics.StatisticsCalculatorService;
@@ -30,7 +31,7 @@ public class StatisticsRepositoryServiceImpl implements StatisticsRepositoryServ
 
     @Override
     @Transactional
-    public void saveStatistics(List<Stream> feed) {
+    public void saveStatistics(final List<Stream> feed) {
         log.info(":: Calculate statistics ::");
         Stats stats = Stats.builder()
                 .id(UUID.randomUUID().toString())
@@ -50,41 +51,56 @@ public class StatisticsRepositoryServiceImpl implements StatisticsRepositoryServ
     }
 
     @Override
-    public Stats findStatsById(String id) {
+    public Stats findStatsById(final String id) {
         log.info(":: Search  stats with id -> {} ::", id);
-        var statisticModel = this.statisticsRepository.findById(id).orElseThrow(() ->{
-            log.error(":: Could not find id -> {} :: ",id);
+        var statisticModel = this.statisticsRepository.findById(id).orElseThrow(() -> {
+            log.error(":: Could not find id -> {} :: ", id);
             return new StatsNotFoundException(id);
-        } );
+        });
         return this.mapper.toStatsDomain(statisticModel);
     }
 
     @Override
-    public List<Stats> findByMeanLessThan(double value) {
-        log.info(":: Search  stats with main less than -> {} ::", value);
-        var statisticsModel = this.statisticsRepository.findByMeanLessThan(value);
-        return this.mapper.toStatsListDomain(statisticsModel);
+    public List<Stats> findStatsByMeanAndOperator(final String operator, final Double value) {
+        return switch (operator) {
+            case "eq" -> this.mapper.toStatsListDomain(this.statisticsRepository.findByMean(value));
+            case "lt" -> this.mapper.toStatsListDomain(this.statisticsRepository.findByMeanLessThan(value));
+            case "lte" -> this.mapper.toStatsListDomain(this.statisticsRepository.findByMeanLessThanEqual(value));
+            case "gt" -> this.mapper.toStatsListDomain(this.statisticsRepository.findByMeanGreaterThan(value));
+            case "gte" -> this.mapper.toStatsListDomain(this.statisticsRepository.findByMeanGreaterThanEqual(value));
+            default -> throw new InvalidParameterException(operator);
+        };
     }
 
     @Override
-    public List<Stats> findByMeanGreaterThan(double value) {
-        log.info(":: Search  stats with main greater than -> {} ::", value);
-        var statisticsModel = this.statisticsRepository.findByMeanGreaterThan(value);
-        return this.mapper.toStatsListDomain(statisticsModel);
+    public List<Stats> findStatsByMinValueAndOperator(final String operator, final Double value) {
+        return switch (operator) {
+            case "eq" -> this.mapper.toStatsListDomain(this.statisticsRepository.findByMinValue(value));
+            case "lt" -> this.mapper.toStatsListDomain(this.statisticsRepository.findByMinValueLessThan(value));
+            case "lte" -> this.mapper.toStatsListDomain(this.statisticsRepository.findByMinValueLessThanEqual(value));
+            case "gt" -> this.mapper.toStatsListDomain(this.statisticsRepository.findByMinValueGreaterThan(value));
+            case "gte" ->
+                    this.mapper.toStatsListDomain(this.statisticsRepository.findByMinValueGreaterThanEqual(value));
+            default -> throw new InvalidParameterException(operator);
+        };
     }
 
     @Override
-    public List<Stats> findByMaxValueLessThan(double value) {
-        log.info(":: Search  stats with max value is less than -> {} ::", value);
-        var statisticsModel = this.statisticsRepository.findByMaxValueLessThan(value);
-        return this.mapper.toStatsListDomain(statisticsModel);
+    public List<Stats> findStatsByMeanWithMinValueAndOperator(final String operator, final Double meanValue, final Double minValue) {
+        return switch (operator) {
+            case "eq" ->
+                    this.mapper.toStatsListDomain(this.statisticsRepository.findByMeanAndMinValue(meanValue, minValue));
+            case "lt" -> this.mapper.toStatsListDomain(this.statisticsRepository
+                    .findByMeanLessThanAndMinValueLessThan(meanValue, minValue));
+            case "lte" -> this.mapper.toStatsListDomain(this.statisticsRepository
+                    .findByMeanLessThanEqualAndMinValueLessThanEqual(meanValue, minValue));
+            case "gt" -> this.mapper.toStatsListDomain(this.statisticsRepository
+                    .findByMeanGreaterThanAndMinValueGreaterThan(meanValue, minValue));
+            case "gte" -> this.mapper.toStatsListDomain(this.statisticsRepository
+                    .findByMeanGreaterThanEqualAndMinValueGreaterThanEqual(meanValue, minValue));
+            default -> throw new InvalidParameterException(operator);
+        };
     }
 
-    @Override
-    public List<Stats> findByMaxValueGreaterThan(double value) {
-        log.info(":: Search  stats with max value is greater than -> {} ::", value);
-        var statisticsModel = this.statisticsRepository.findByMaxValueGreaterThan(value);
-        return this.mapper.toStatsListDomain(statisticsModel);
-    }
 
 }

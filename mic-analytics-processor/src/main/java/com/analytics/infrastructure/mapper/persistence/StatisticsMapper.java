@@ -10,9 +10,9 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface StatisticsMapper {
 
-    StatisticsModel toStatistics(Stats statsDomain);
+    StatisticsModel toStatistics(final Stats statsDomain);
 
-    Stats toStatsDomain(StatisticsModel statsModel);
+    Stats toStatsDomain(final StatisticsModel statsModel);
 
-    List<Stats> toStatsListDomain(List<StatisticsModel> statsModel);
+    List<Stats> toStatsListDomain(final List<StatisticsModel> statsModel);
 }

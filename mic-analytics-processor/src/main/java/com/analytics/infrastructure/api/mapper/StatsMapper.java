@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface StatsMapper {
 
-    StatsDto toStatsDto(Stats statsDomainDto);
+    StatsDto toStatsDto(final Stats statsDomainDto);
 
-    List<StatsDto> toStatsListDto(List<Stats> statsDomainDto);
+    List<StatsDto> toStatsListDto(final List<Stats> statsDomainDto);
 }

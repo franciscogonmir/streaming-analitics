@@ -28,7 +28,7 @@ public class MessagingConfig {
     }
 
     @Bean
-    Binding binding(Queue queue, DirectExchange exchange) {
+    Binding binding(final Queue queue, final DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(this.rabbitProperties.getRoutingKey());
     }
 
@@ -55,7 +55,7 @@ public class MessagingConfig {
     }
 
     @Bean
-    public AmqpTemplate template(ConnectionFactory connectionFactory) {
+    public AmqpTemplate template(final ConnectionFactory connectionFactory) {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(this.jsonMessageConverter());
         return rabbitTemplate;

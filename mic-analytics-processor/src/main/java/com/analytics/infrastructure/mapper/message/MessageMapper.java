@@ -12,17 +12,17 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface MessageMapper {
-    DataPointMessage toDataPointMessage(DataPoint dataPointDomain);
+    DataPointMessage toDataPointMessage(final DataPoint dataPointDomain);
 
-    DataStreamMessage toDataStreamMessage(DataStream dataStreamDomain);
+    DataStreamMessage toDataStreamMessage(final DataStream dataStreamDomain);
 
-    StreamMessage toStreamMessage(Stream streamDomain);
+    StreamMessage toStreamMessage(final Stream streamDomain);
 
-    DataPoint toDataPointDomain(DataPointMessage dataPointMessage);
+    DataPoint toDataPointDomain(final DataPointMessage dataPointMessage);
 
-    DataStream toDataStreamDomain(DataStream dataStreamMessage);
+    DataStream toDataStreamDomain(final DataStream dataStreamMessage);
 
-    Stream toStreamDomain(StreamMessage streamDomainMessage);
+    Stream toStreamDomain(final StreamMessage streamDomainMessage);
 
-    List<Stream> toStreamsDomain(List<StreamMessage> messages);
+    List<Stream> toStreamsDomain(final List<StreamMessage> messages);
 }
