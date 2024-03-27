@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ConsumerDataStream {
 
-    void consumeDataStream(List<Message> messages);
+    void consumeDataStream(final List<Message> messages);
 }

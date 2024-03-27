@@ -22,7 +22,7 @@ public class ProducerDataStreamImpl implements ProducerDataStream {
     private final RabbitProperties rabbitProperties;
 
     @Override
-    public void execute(Stream dataStream) {
+    public void execute(final Stream dataStream) {
         log.info(":: Sending message-> {} ::", dataStream.toString());
         StreamMessage message = mapper.toStreamMessage(dataStream);
         this.template.convertAndSend(this.rabbitProperties.getExchange(), this.rabbitProperties.getRoutingKey(), message);

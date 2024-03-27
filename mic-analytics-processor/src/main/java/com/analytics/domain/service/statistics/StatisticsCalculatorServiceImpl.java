@@ -21,7 +21,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
 
 
     @Override
-    public double calculateMean(List<Stream> feed) {
+    public double calculateMean(final List<Stream> feed) {
         return getAllDataPoints(feed)
                 .stream()
                 .mapToInt(DataPoint::value)
@@ -31,7 +31,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
 
 
     @Override
-    public double getMedian(List<Stream> feed) {
+    public double getMedian(final List<Stream> feed) {
         return getAllDataPoints(feed)
                 .stream()
                 .sorted(Comparator.comparingInt(DataPoint::value))
@@ -39,7 +39,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
     }
 
     @Override
-    public List<Integer> getMode(List<Stream> feed) {
+    public List<Integer> getMode(final List<Stream> feed) {
         List<Integer> numberValues = getAllDataPoints(feed)
                 .stream()
                 .map(DataPoint::value)
@@ -48,7 +48,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
     }
 
     @Override
-    public double calculateMaxValue(List<Stream> feed) {
+    public double calculateMaxValue(final List<Stream> feed) {
         return getAllDataPoints(feed)
                 .stream()
                 .mapToInt(DataPoint::value)
@@ -57,7 +57,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
     }
 
     @Override
-    public double calculateMinValue(List<Stream> feed) {
+    public double calculateMinValue(final List<Stream> feed) {
         return getAllDataPoints(feed)
                 .stream()
                 .mapToInt(DataPoint::value)
@@ -66,7 +66,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
     }
 
     @Override
-    public double calculateStandardDeviation(List<Stream> feed) {
+    public double calculateStandardDeviation(final List<Stream> feed) {
         List<DataPoint> dataPoints = getAllDataPoints(feed);
         double media = this.calculateMean(feed);
         double sumOfSquaredDifferences = getAllDataPoints(feed).stream()
@@ -77,7 +77,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
     }
 
     @Override
-    public double calculateFirstQuartile(List<Stream> feed) {
+    public double calculateFirstQuartile(final List<Stream> feed) {
         List<Integer> sortedValues = getSortedValues(feed);
         int size = sortedValues.size();
         int indexQuartile = size / FOUR;
@@ -86,7 +86,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
     }
 
     @Override
-    public double calculateThirdQuartile(List<Stream> feed) {
+    public double calculateThirdQuartile(final List<Stream> feed) {
         List<Integer> sortedValues = getSortedValues(feed);
         int size = sortedValues.size();
         int indexQuartile = 3 * size / FOUR;
@@ -94,7 +94,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
         return calculateQuartile(sortedValues, size, indexQuartile);
     }
 
-    private List<DataPoint> getAllDataPoints(List<Stream> feed) {
+    private List<DataPoint> getAllDataPoints(final List<Stream> feed) {
         return feed.stream()
                 .flatMap(stream -> stream.dataStreams().stream())
                 .flatMap(dataStream -> dataStream.dataPoints().stream())
@@ -102,7 +102,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
                 .toList();
     }
 
-    private double calculateMedian(List<DataPoint> dataPoints) {
+    private double calculateMedian(final List<DataPoint> dataPoints) {
         var size = dataPoints.size();
         var middleValue = dataPoints.get(size / TWO);
         var middleValue2 = dataPoints.get(size / TWO - ONE);
@@ -110,7 +110,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
                 middleValue.value();
     }
 
-    private List<Integer> calculateMode(List<Integer> numberValues) {
+    private List<Integer> calculateMode(final List<Integer> numberValues) {
         Map<Integer, Integer> frequencies = getFrequencies(numberValues);
         int maxFrequency = getMaxFrequency(frequencies);
         return frequencies.entrySet().stream()
@@ -119,13 +119,13 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
                 .toList();
     }
 
-    private Integer getMaxFrequency(Map<Integer, Integer> frequencies) {
+    private Integer getMaxFrequency(final Map<Integer, Integer> frequencies) {
         return frequencies.values().stream()
                 .max(Integer::compareTo)
                 .orElse(ZERO);
     }
 
-    private Map<Integer, Integer> getFrequencies(List<Integer> numberValues) {
+    private Map<Integer, Integer> getFrequencies(final List<Integer> numberValues) {
         Map<Integer, Integer> frequencies = new HashMap<>();
         for (int number : numberValues) {
             frequencies.put(number, frequencies.getOrDefault(number, ZERO) + ONE);
@@ -133,7 +133,7 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
         return frequencies;
     }
 
-    private List<Integer> getSortedValues(List<Stream> feed) {
+    private List<Integer> getSortedValues(final List<Stream> feed) {
         return getAllDataPoints(feed)
                 .stream()
                 .map(DataPoint::value)
@@ -141,13 +141,13 @@ public class StatisticsCalculatorServiceImpl implements StatisticsCalculatorServ
                 .toList();
     }
 
-    private double calculateQuartile(List<Integer> sortedValues, int size, int indexQuartile) {
+    private double calculateQuartile(final List<Integer> sortedValues, final int size, final int indexQuartile) {
         return isEvenNumber(size) ?
                 (sortedValues.get(indexQuartile - ONE) + sortedValues.get(indexQuartile)) / 2.0 :
                 sortedValues.get(indexQuartile);
     }
 
-    private static boolean isEvenNumber(int size) {
+    private static boolean isEvenNumber(final int size) {
         return size % TWO == ZERO;
     }
 }

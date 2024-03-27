@@ -24,7 +24,7 @@ public class SendDataController {
 
 
     @PostMapping("/send/data")
-    public ResponseEntity<String> processorStatistics(@Valid @RequestBody StreamDto streamDto) {
+    public ResponseEntity<String> processorStatistics(@Valid @RequestBody final StreamDto streamDto) {
         this.sendDataUseCase.send(this.mapper.toDataStreamDomain(streamDto));
         return ResponseEntity.accepted().build();
     }

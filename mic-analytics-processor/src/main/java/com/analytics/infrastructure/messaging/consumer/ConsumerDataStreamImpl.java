@@ -30,7 +30,7 @@ public class ConsumerDataStreamImpl implements ConsumerDataStream {
     private final RabbitProperties rabbitProperties;
 
     @RabbitListener(queues = "datastream_queue", containerFactory = "myRabbitListenerContainerFactory")
-    public void consumeDataStream(List<Message> messages) {
+    public void consumeDataStream(final List<Message> messages) {
         log.info(":: Received {} messages ::", messages.size());
         List<StreamMessage> messagesToConsume = new ArrayList<>();
         for (Message message : messages) {

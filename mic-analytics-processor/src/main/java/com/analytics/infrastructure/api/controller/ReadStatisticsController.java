@@ -59,8 +59,8 @@ public class ReadStatisticsController {
 
     @GetMapping("/filter/mean/and/minvalue")
     public ResponseEntity<List<StatsDto>> filterByMeanAndMinValue(@RequestParam @NotNull final OperatorDto operator,
-                                                                  @RequestParam @NotNull double meanValue,
-                                                                  @RequestParam @NotNull double minValue) {
+                                                                  @RequestParam @NotNull final double meanValue,
+                                                                  @RequestParam @NotNull final double minValue) {
         var operatorName = operator.name();
         var response = this.statsMapper.toStatsListDto(this.readStatsUseCase.filterMeanAndMinValue(operatorName.toLowerCase(), meanValue, minValue));
         response.forEach(statsDto -> log.info(":: Filtered result by mean {} and minimum value {} with operator {} -> {} ::",

@@ -25,13 +25,13 @@ public class ReadStatsUseCaseImpl implements ReadStatsUseCase {
     }
 
     @Override
-    public List<Stats> filterMinValue(String operator, double value) {
+    public List<Stats> filterMinValue(final String operator, final double value) {
         return this.repositoryService.findStatsByMinValueAndOperator(operator, value);
     }
 
     @Override
-    public List<Stats> filterMeanAndMinValue(String operator, double meanValue, double minValue) {
-        return this.repositoryService.findStatsByMeanWithMinValueAndOperator(operator, meanValue,minValue);
+    public List<Stats> filterMeanAndMinValue(final String operator, final double meanValue, final double minValue) {
+        return this.repositoryService.findStatsByMeanWithMinValueAndOperator(operator, meanValue, minValue);
 
     }
 }
