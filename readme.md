@@ -8,19 +8,8 @@ To publish a message, an endpoint has been exposed that receives a message. Mess
 
 ## API Documentation
 
-The service includes the springdoc-openapi plugin for API documentation generation. The API documentation can be accessed once the service is up and running at [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs). Additionally, Swagger can be accessed at [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html). Swagger can be used to test the solution.
+The service includes the springdoc-openapi plugin for API documentation generation. The API documentation can be accessed once the service is up and running at [http://localhost:8080/v3/api-docs](http://localhost:8080/v3/api-docs). Additionally, Swagger can be accessed at [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html). **Swagger can be used to test the solution**.
 
-![img_1.png](images/img_1.png)
-
-![img_2.png](images/img_2.png)
-
-![img_3.png](images/img_3.png)
-
-![img_4.png](images/img_4.png)
-
-![img_5.png](images/img_5.png)
-
-![img_6.png](images/img_6.png)
 
 ## Data Model
 
@@ -128,6 +117,8 @@ Due to time constraints, the application only contains unit tests for the statis
 
 To test the application, there is a script located at random_data_sender.sh which can be executed from within the application.
 You can observe the inserted records through the logs or by connecting to the database. Afterwards, you can test the query endpoints.
+
+For the query endpoints, you can use Swagger in localization [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html).
 
 
 
