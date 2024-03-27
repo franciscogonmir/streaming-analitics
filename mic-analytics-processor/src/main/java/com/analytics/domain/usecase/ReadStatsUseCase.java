@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface ReadStatsUseCase {
 
-    Stats getStatsById(String id);
+    Stats getStatsById(final String id);
 
-    List<Stats> filterStatsByField(String field,String operator, double value);
+    List<Stats> filterMean(final String operator, final double value);
 
+    List<Stats> filterMinValue(final String operator, final double value);
+
+
+    List<Stats> filterMeanAndMinValue(final String operator, final double meanValue, final double minValue);
 }

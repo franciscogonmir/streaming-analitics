@@ -7,16 +7,13 @@ import java.util.List;
 
 public interface StatisticsRepositoryService {
 
-    void saveStatistics(List<Stream> feed);
+    void saveStatistics(final List<Stream> feed);
 
-    Stats findStatsById(String id);
+    Stats findStatsById(final String id);
 
-    List<Stats> findByMeanLessThan(double value);
+    List<Stats> findStatsByMeanAndOperator(final String operator, final Double value);
 
-    List<Stats> findByMeanGreaterThan(double value);
+    List<Stats> findStatsByMinValueAndOperator(final String operator, final Double value);
 
-    List<Stats> findByMaxValueLessThan(double value);
-
-    List<Stats> findByMaxValueGreaterThan(double value);
-
+    List<Stats> findStatsByMeanWithMinValueAndOperator(final String operator, final Double meanValue, final Double minValue);
 }

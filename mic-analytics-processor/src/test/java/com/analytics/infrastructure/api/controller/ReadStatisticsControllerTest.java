@@ -2,6 +2,7 @@ package com.analytics.infrastructure.api.controller;
 
 import com.analytics.domain.entities.persistence.Stats;
 import com.analytics.domain.usecase.ReadStatsUseCase;
+import com.analytics.infrastructure.api.dto.OperatorDto;
 import com.analytics.infrastructure.api.dto.StatsDto;
 import com.analytics.infrastructure.api.mapper.StatsMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,19 +23,12 @@ import java.time.Instant;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ReadStatisticsControllerTest {
-
-    private static final int A_MEAN_VALUE = 40;
-    private static final int A_MEDIAN_VALUE = 27;
-    private static final List<Integer> A_MODE_VALUE = List.of(32, 16);
-    private static final double A_STANDARD_DEVIATION_VALUE = 27.2;
-    private static final double A_FIRST_QUARTILE_VALUE = 25.0;
-    private static final double A_THIRD_QUARTILE_VALUE = 51.0;
-    private static final double A_MAX_VALUE = 102.0;
-    private static final double A_MIN_VALUE = 16.0;
+    public static final OperatorDto OPERATOR_DTO = OperatorDto.GT;
     private MockMvc mockMvc;
 
     @Mock
@@ -54,13 +48,13 @@ class ReadStatisticsControllerTest {
     @Test
     public void testGetStatsById() throws Exception {
         String id = "someId";
-        Stats stats = getStats();
-        StatsDto expectedDto = getStatsDto();
+        Stats stats = Stats.builder().id("someId").build();
+        StatsDto expectedDto = StatsDto.builder().id("someId").build();
 
         when(this.readStatsUseCase.getStatsById(id)).thenReturn(stats);
         when(this.statsMapper.toStatsDto(stats)).thenReturn(expectedDto);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/statistics/{id}", id))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/statistics/filter/id/{id}", id))
                 .andReturn();
 
         MockHttpServletResponse response = mvcResult.getResponse();
@@ -73,50 +67,53 @@ class ReadStatisticsControllerTest {
     }
 
     @Test
-    public void testGetStatsByFields() throws Exception {
-        String field = "someField";
-        String operator = "greaterThan";
-        double value = 10.0;
-        List<Stats> statsList = List.of(getStats());
-        List<StatsDto> expectedDtoList = List.of(getStatsDto());
+    void testfilterByMean_okResponse() throws Exception {
+        var value = 5.0;
+        var operator = OPERATOR_DTO.name();
+        List<Stats> statsList = List.of(mock(Stats.class));
+        List<StatsDto> expectedDtoList = List.of(mock(StatsDto.class));
 
-        when(this.readStatsUseCase.filterStatsByField(field, operator, value)).thenReturn(statsList);
+        when(this.readStatsUseCase.filterMean(operator.toLowerCase(), value)).thenReturn(statsList);
         when(this.statsMapper.toStatsListDto(statsList)).thenReturn(expectedDtoList);
 
-        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/statistics/field/{field}?operator={operator}&value={value}", field, operator, value))
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/statistics/filter/mean?operator={operator}&value={value}", operator,value))
                 .andReturn();
         MockHttpServletResponse response = mvcResult.getResponse();
         assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
-    private Stats getStats() {
-        return Stats.builder()
-                .id("someId")
-                .at(Instant.now().toEpochMilli())
-                .mean(A_MEAN_VALUE)
-                .median(A_MEDIAN_VALUE)
-                .mode(A_MODE_VALUE)
-                .standardDeviation(A_STANDARD_DEVIATION_VALUE)
-                .firstQuartile(A_FIRST_QUARTILE_VALUE)
-                .thirdQuartile(A_THIRD_QUARTILE_VALUE)
-                .maxValue(A_MAX_VALUE)
-                .minValue(A_MIN_VALUE)
-                .build();
+    @Test
+    void testfilterByMinValue_okResponse() throws Exception {
+        var value = 5.0;
+        var operator = OPERATOR_DTO.name();
+        List<Stats> statsList = List.of(mock(Stats.class));
+        List<StatsDto> expectedDtoList = List.of(mock(StatsDto.class));
+
+        when(this.readStatsUseCase.filterMinValue(operator.toLowerCase(), value)).thenReturn(statsList);
+        when(this.statsMapper.toStatsListDto(statsList)).thenReturn(expectedDtoList);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/statistics/filter/minvalue?operator={operator}&value={value}", operator,value))
+                .andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
 
-    private StatsDto getStatsDto() {
-        return StatsDto.builder()
-                .id("someId")
-                .at(Instant.now().toEpochMilli())
-                .mean(A_MEAN_VALUE)
-                .median(A_MEDIAN_VALUE)
-                .mode(A_MODE_VALUE)
-                .standardDeviation(A_STANDARD_DEVIATION_VALUE)
-                .firstQuartile(A_FIRST_QUARTILE_VALUE)
-                .thirdQuartile(A_THIRD_QUARTILE_VALUE)
-                .maxValue(A_MAX_VALUE)
-                .minValue(A_MIN_VALUE)
-                .build();
+    @Test
+    void testfilterByMinValueAndMean_okResponse() throws Exception {
+        var meanValue = 5.0;
+        var minValue = 6.0;
+        var operator = OPERATOR_DTO.name();
+        List<Stats> statsList = List.of(mock(Stats.class));
+        List<StatsDto> expectedDtoList = List.of(mock(StatsDto.class));
+
+        when(this.readStatsUseCase.filterMeanAndMinValue(operator.toLowerCase(), meanValue,minValue)).thenReturn(statsList);
+        when(this.statsMapper.toStatsListDto(statsList)).thenReturn(expectedDtoList);
+
+        MvcResult mvcResult = this.mockMvc.perform(MockMvcRequestBuilders.get("/api/statistics/filter/mean/and/minvalue?operator={operator}&meanValue={meanValue}&minValue={minValue}", operator,meanValue,minValue))
+                .andReturn();
+        MockHttpServletResponse response = mvcResult.getResponse();
+        assertEquals(HttpStatus.OK.value(), response.getStatus());
     }
+
 
 }
