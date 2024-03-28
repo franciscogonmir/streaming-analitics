@@ -4,7 +4,7 @@ import com.analytics.domain.entities.Messaging.Stream;
 import com.analytics.domain.messaging.ProducerDataStream;
 import com.analytics.infrastructure.mapper.message.MessageMapper;
 import com.analytics.infrastructure.messaging.config.RabbitProperties;
-import com.analytics.infrastructure.messaging.producer.Message.StreamMessage;
+import com.analytics.infrastructure.messaging.producer.message.StreamMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;

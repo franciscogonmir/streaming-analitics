@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 public class ApplicationConfig {
 
     @Bean
-    public SendDataUseCase dataStreamUseCase(final ProducerDataStream producer) {
+    public SendDataUseCase sendDataUseCase(final ProducerDataStream producer) {
         return new SendDataUseCaseImpl(producer);
     }
 
