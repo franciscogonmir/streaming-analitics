@@ -4,8 +4,7 @@ import com.analytics.domain.entities.Messaging.Stream;
 import com.analytics.domain.messaging.ConsumerDataStream;
 import com.analytics.domain.service.repository.StatisticsRepositoryService;
 import com.analytics.infrastructure.mapper.message.MessageMapper;
-import com.analytics.infrastructure.messaging.config.RabbitProperties;
-import com.analytics.infrastructure.messaging.producer.Message.StreamMessage;
+import com.analytics.infrastructure.messaging.producer.message.StreamMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -21,13 +20,11 @@ import java.util.List;
 @Slf4j
 public class ConsumerDataStreamImpl implements ConsumerDataStream {
 
-    private final StatisticsRepositoryService statisticsRepositoryServiceService;
+    private final StatisticsRepositoryService statisticsRepositoryService;
 
     private final MessageMapper mapper;
 
     private final MessageConverter messageConverter;
-
-    private final RabbitProperties rabbitProperties;
 
     @RabbitListener(queues = "datastream_queue", containerFactory = "myRabbitListenerContainerFactory")
     public void consumeDataStream(final List<Message> messages) {
@@ -38,6 +35,6 @@ public class ConsumerDataStreamImpl implements ConsumerDataStream {
             messagesToConsume.add(streamMessage);
         }
         List<Stream> streams = this.mapper.toStreamsDomain(messagesToConsume);
-        this.statisticsRepositoryServiceService.saveStatistics(streams);
+        this.statisticsRepositoryService.saveStatistics(streams);
     }
 }
