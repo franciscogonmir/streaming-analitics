@@ -1,4 +1,4 @@
-package com.analytics.infrastructure.messaging.producer.Message;
+package com.analytics.infrastructure.messaging.producer.message;
 
 
 import java.util.List;
